@@ -5,7 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body style="background-color: blanchedalmond;">
+    <div style="width: 400px; display: block; margin: 0 auto;">
+
+        <h1 th:text="${product.name}"></h1>
+        <img th:src="${product.imageUrl}" alt="Product Image" style="width: 420px; height: 650px;" />
+        <p th:text="${product.description}"></p>
+        <p>Price: $<span th:text="${product.price}"></span></p>
+        <button style="margin-left: 310px;">Add to cart</button>
+    </div>
+    <a href="/">Back to Products</a>
     
 </body>
 </html>
