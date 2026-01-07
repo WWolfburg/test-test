@@ -1,20 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Product Details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body style="background-color: blanchedalmond;">
-    <div style="width: 400px; display: block; margin: 0 auto;">
-
-        <h1 th:text="${product.name}"></h1>
-        <img th:src="${product.imageUrl}" alt="Product Image" style="width: 420px; height: 650px;" />
-        <p th:text="${product.description}"></p>
-        <p>Price: $<span th:text="${product.price}"></span></p>
-        <button style="margin-left: 310px;">Add to cart</button>
+<body>
+    <header>
+        <h1>Product Details</h1>
+    </header>
+    <div class="nav-container">
+        <a th:href="@{api/users/Register}" sec:authorize="!isAuthenticated()"><h2>Register</h2></a>
+        <a th:href="@{/logout}" sec:authorize="isAuthenticated()"><h2>Log out</h2></a>
+        <a th:href="@{/api/orders}" sec:authorize="isAuthenticated()"><h2>View Orders</h2></a>
+        <a th:href="@{/login}" sec:authorize="!isAuthenticated()"><h2>Log in</h2></a>
     </div>
-    <a href="/">Back to Products</a>
+    <div class="product-details-wrapper">
+        <div th:if="${product != null}" class="product-details">
+            <h1 th:text="${product.name}"></h1>
+            <img th:src="${product.imageUrl}" alt="Product Image" />
+            <p th:text="${product.description}"></p>
+            <p>Price: $<span th:text="${product.price}"></span></p>
+            <button>Add to cart</button>
+        </div>
+        <div th:if="${product == null}">
+            <h2>Product not found.</h2>
+            <p>Sorry the product is not avalible at the moment.</p>
+            <p>But feel free to go <a href="/">back</a> and look at our other products.</p>
+        </div>
+        <a href="/" class="back-link">Back to Products</a>
+        </div>
     
 </body>
 </html>
