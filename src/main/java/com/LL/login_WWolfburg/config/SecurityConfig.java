@@ -20,19 +20,20 @@ public class SecurityConfig {
         this.jpaUserDetailsService = jpaUserDetailsService;
     }
 
-
+    //Regler för access till olika endpoints
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> auth
-        .requestMatchers("/", "/api/users/Register", "/images/**").permitAll()
-        .requestMatchers("/orders/**", "/api/orders/**").authenticated()
-        .anyRequest().permitAll()
+        .requestMatchers("/", "/api/users/Register", "/images/**", "/products/**", "/css/**", "/product/**").permitAll()  //Allmän access till endpoints
+        .requestMatchers("/orders/**", "/api/orders/**").authenticated()  //Inlogg krävs för att se dessa endpoints
+        .anyRequest().authenticated() // Allmän inlogg krävs allt som inte är listat ovan
         )
         .userDetailsService(jpaUserDetailsService)
-        .formLogin(Customizer.withDefaults());
+        .formLogin(Customizer.withDefaults()); // Standarn login form från Spring Security
         return http.build();
     }
 
+    // Crypterar lösenord med BCrypt så att det inte sparas som lösentext
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

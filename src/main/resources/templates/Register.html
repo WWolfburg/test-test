@@ -16,6 +16,9 @@
         <a th:href="@{/api/orders}" sec:authorize="isAuthenticated()"><h2>View Orders</h2></a>
         <a th:href="@{/login}" sec:authorize="!isAuthenticated()"><h2>Log in</h2></a>
     </div>
+    <div th:if="${error}" style="color: brown;" class="errortext">
+        <p th:text="${error}"></p>
+    </div>
     <form th:action="@{/api/users/Register}" method="post">
         <div>
             <label>Username:</label>
