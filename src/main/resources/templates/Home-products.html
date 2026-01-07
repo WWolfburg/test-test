@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Whisky Master</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-    <h1 style="text-align: center;">Taste of Men</h1>
-<body style="background-color: blanchedalmond;">
-    <div style="display: flex; gap: 1730px;">
+<body>
+    <header>
+        <h1>Whisky Business</h1>
+    </header>
+    <div class="nav-container">
         <a th:href="@{api/users/Register}" sec:authorize="!isAuthenticated()"><h2>Register</h2></a>
         <a th:href="@{/logout}" sec:authorize="isAuthenticated()"><h2>Log out</h2></a>
         <a th:href="@{/api/orders}" sec:authorize="isAuthenticated()"><h2>View Orders</h2></a>
         <a th:href="@{/login}" sec:authorize="!isAuthenticated()"><h2>Log in</h2></a>
     </div>
     <div>
-        <ul style="list-style-type: none; padding: 0; margin-left: 42%;">
-            <li th:each="product : ${products}" style="margin-bottom: 20px; padding: 10px;">
-                <img th:src="${product.imageUrl}" alt="Product Image" style="width: 300px; height: 300px; object-fit: cover;"/>
+        <ul class="product-list">
+            <li th:each="product : ${products}" class="product-item">
+                <img th:src="${product.imageUrl}" alt="Product Image"/>
                 <h3 th:text="${product.name}"></h3>
                 <p>Price: $<span th:text="${product.price}"></span></p>
                 <a th:href="@{/product/{id}(id=${product.id})}">View Details</a>

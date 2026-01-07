@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body style="background-color: blanchedalmond;">
-    <h1>Register</h1>
+<body>
+    <header>
+        <h1>Register</h1>
+    </header>
+    <div class="nav-container">
+        <a th:href="@{/}" sec:authorize="!isAuthenticated()"><h2>Back to Home</h2></a>
+        <a th:href="@{/logout}" sec:authorize="isAuthenticated()"><h2>Log out</h2></a>
+        <a th:href="@{/api/orders}" sec:authorize="isAuthenticated()"><h2>View Orders</h2></a>
+        <a th:href="@{/login}" sec:authorize="!isAuthenticated()"><h2>Log in</h2></a>
+    </div>
+    <div th:if="${error}" style="color: brown;" class="errortext">
+        <p th:text="${error}"></p>
+    </div>
     <form th:action="@{/api/users/Register}" method="post">
         <div>
             <label>Username:</label>
@@ -15,7 +27,7 @@
 
          <div>
             <label>Password:</label>
-            <input type="password" name="password" required />
+            <input type="text" name="password" required />
         </div>
 
          <div>

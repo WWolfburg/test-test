@@ -1,13 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Orders</title>
+    <title>Orders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body style="background-color: blanchedalmond;">
-    <h1 style="text-align: center; border: 1px, black solid; ">ORDERS:</h1>
-
-    <a th:href="@{/}">Home</a>
+<body>
+    <header>
+        <h1>Orders</h1>
+    </header>
+    <div class="nav-container">
+        <a th:href="@{api/users/Register}" sec:authorize="!isAuthenticated()"><h2>Register</h2></a>
+        <a th:href="@{/logout}" sec:authorize="isAuthenticated()"><h2>Log out</h2></a>
+        <a th:href="@{/api/orders}" sec:authorize="isAuthenticated()"><h2>View Orders</h2></a>
+        <a th:href="@{/login}" sec:authorize="!isAuthenticated()"><h2>Log in</h2></a>
+    </div>
+    <div class="orders-container">
+        <h1>ORDERS:</h1>
+    </div>
+    <a th:href="@{/}" class="back-link">Home</a>
 </body>
 </html>
